@@ -1,6 +1,7 @@
 return {
 	"stevearc/oil.nvim",
 	desc = "File manager using nvim buffers",
+    lazy = false,
 	opts = {
 		default_file_explorer = true,
 		columns = {
@@ -153,4 +154,7 @@ return {
 		},
 	},
 	dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+        { "<leader>pv", vim.cmd.Oil, mode = "n" , desc = "[P]ath [V]iewer"}
+    },
 }
