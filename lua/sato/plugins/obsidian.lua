@@ -47,7 +47,7 @@ return {
 				substitutions = {},
 			},
 			picker = {
-				name = "telescope.nvim",
+				name = "snacks.picker",
 				note_mappings = {
 					new = "<C-x>",
 					insert_link = "<C-l>",
