@@ -1,25 +1,117 @@
 return {
 	"mfussenegger/nvim-dap",
-    desc = "Debug",
+	desc = "Debug",
 	event = "VeryLazy",
 	dependencies = {
 		"rcarriga/nvim-dap-ui",
 		"nvim-neotest/nvim-nio",
 		"williamboman/mason.nvim",
 		"jay-babu/mason-nvim-dap.nvim",
+		"mxsdev/nvim-dap-vscode-js",
 	},
 	keys = {
-		{ "<F5>", function() require("dap").continue() end, desc = "Debug: Start/Continue", },
-		{ "<F1>", function() require("dap").step_into() end, desc = "Debug: Step Into", },
-		{ "<F2>", function() require("dap").step_over() end, desc = "Debug: Step Over", },
-		{ "<F3>", function() require("dap").step_out() end, desc = "Debug: Step Out", },
-		{ "<leader>b", function() require("dap").toggle_breakpoint() end, desc = "Debug: Toggle [B]reakpoint", },
-		{ "<leader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Debug: Set [B]reakpoint", },
-		{ "<F4>", function() require("dapui").toggle() end, desc = "Debug: Toggle UI", },
+		{ "<F5>", function() require("dap").continue() end, desc = "Debug: Start/Continue" },
+		{ "<F1>", function() require("dap").step_into() end, desc = "Debug: Step Into" },
+		{ "<F2>", function() require("dap").step_over() end, desc = "Debug: Step Over" },
+		{ "<F3>", function() require("dap").step_out() end, desc = "Debug: Step Out" },
+		{ "<leader>b", function() require("dap").toggle_breakpoint() end, desc = "Debug: Toggle [B]reakpoint" },
+		{
+			"<leader>B",
+			function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
+			desc = "Debug: Set [B]reakpoint",
+		},
+		{ "<F4>", function() require("dapui").toggle() end, desc = "Debug: Toggle UI" },
 	},
 	config = function()
 		local dap = require("dap")
 		local dapui = require("dapui")
+		local runtime = vim.uv.fs_stat("bun.lock") and "bun" or "node"
+		local js_debug_path = vim.fn.stdpath("data") .. "/mason/bin/js-debug-adapter"
+
+		-- 2. Define the adapter instance
+		dap.adapters["pwa-node"] = {
+			type = "server",
+			host = "localhost",
+			port = "${port}",
+			executable = {
+				command = js_debug_path,
+				args = { "${port}" },
+			},
+		}
+		dap.set_log_level("TRACE")
+
+
+		if not dap.adapters["node"] then
+			dap.adapters["node"] = function(cb, config)
+				if config.type == "node" then config.type = "pwa-node" end
+
+				local nativeAdapter = dap.adapters["pwa-node"]
+
+				if type(nativeAdapter) == "function" then
+					nativeAdapter(cb, config)
+				else
+					cb(nativeAdapter)
+				end
+			end
+		end
+
+		local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+
+		local vscode = require("dap.ext.vscode")
+		vscode.type_to_filetypes["node"] = js_filetypes
+		vscode.type_to_filetypes["pwa-node"] = js_filetypes
+
+		local dap_configurations = {
+			{
+				type = "pwa-node",
+				request = "launch",
+				name = "Launch file",
+				program = "${file}",
+				cwd = "${workspaceFolder}",
+				runtimeExecutable = runtime,
+				runtimeArgs = runtime == "bun" and { "run", "--watch" } or nil,
+			},
+			{
+				type = "pwa-node",
+				request = "attach",
+				name = "Attach",
+				cwd = "${workspaceFolder}",
+			},
+			{
+				name = "NestJS: debug",
+				command = "nvm use 24;npm run start:debug",
+				type = "pwa-node",
+				request = "launch",
+				trace = true,
+				cwd = vim.fn.getcwd(),
+				runtimeExecutable = runtime,
+				runtimeArgs = runtime == "bun" and { "run" } or nil,
+				program = "${workspaceFolder}/node_modules/@nestjs/cli/bin/nest.js",
+				args = {
+					"start",
+					"--debug",
+					"--watch",
+					"--preserveWatchOutput",
+				},
+				sourceMaps = true,
+				stopOnEntry = false,
+				console = "integratedTerminal",
+				protocol = "auto",
+				outDir = "${workspaceFolder}/dist",
+				restart = true,
+			},
+			{
+				name = "Run Debugger k",
+				command = "nvm use 24;npm run start:debug",
+				type = "pwa-node",
+				cwd = "${workspaceFolder}",
+				request = "launch",
+			},
+		}
+
+		for _, language in ipairs(js_filetypes) do
+			if not dap.configurations[language] then dap.configurations[language] = dap_configurations end
+		end
 
 		dap.adapters.php = {
 			type = "server",

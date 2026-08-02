@@ -2,13 +2,13 @@ return {
 	"sindrets/diffview.nvim",
 	desc = "View diff",
 	lazy = true,
-    cmd = { "DiffviewOpen" },
-    keys = {
-        { "<leader>gdo", "<cmd>DiffviewOpen<CR>", mode = "n", desc = "[G]it [D]iff [O]pen" },
-        { "<leader>gdc", "<cmd>DiffviewClose<CR>", mode = "n", desc = "[G]it [D]iff [C]lose" },
-    },
+	cmd = { "DiffviewOpen" },
+	keys = {
+		{ "<leader>gdo", "<cmd>DiffviewOpen<CR>", mode = "n", desc = "[G]it [D]iff [O]pen" },
+		{ "<leader>gdc", "<cmd>DiffviewClose<CR>", mode = "n", desc = "[G]it [D]iff [C]lose" },
+	},
 	opts = function()
-        local actions = require("diffview.actions")
+		local actions = require("diffview.actions")
 		return {
 			keymaps = {
 				disable_defaults = false, -- Disable the default keymaps
