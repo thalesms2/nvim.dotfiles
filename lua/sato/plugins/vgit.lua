@@ -1,49 +1,30 @@
 return {
 	"tanvirtin/vgit.nvim",
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
-	-- Lazy loading on 'VimEnter' event is necessary.
-    desc = "View git info on buffer",
-    enabled = false,
+	desc = "View git info on buffer",
+	enabled = false,
 	event = "VimEnter",
 	config = function()
-        local vg = require("vgit")
+		local vg = require("vgit")
 		vg.setup({
-			-- keymaps = {
-			-- 	["n <C-k>"] = function()
-			-- 		vg.hunk_up()
-			-- 	end,
-			-- 	{
-			-- 		mode = "n",
-			-- 		key = "<C-j>",
-			-- 		handler = "hunk_down",
-			-- 		desc = "Go down in the direction of the hunk",
-			-- 	},
-			-- 	["n <leader>gs"] = function()
-			-- 		require("vgit").buffer_hunk_stage()
-			-- 	end,
-			-- 	["n <leader>gr"] = function()
-			-- 		require("vgit").buffer_hunk_reset()
-			-- 	end,
-			-- 	["n <leader>gp"] = function()
-			-- 		require("vgit").buffer_hunk_preview()
-			-- 	end,
-			-- 	["n <leader>gb"] = "buffer_blame_preview",
-			-- 	["n <leader>gf"] = function()
-			-- 		require("vgit").buffer_diff_preview()
-			-- 	end,
-			-- 	["n <leader>gh"] = function()
-			-- 		require("vgit").buffer_history_preview()
-			-- 	end,
-			-- 	["n <leader>gu"] = function()
-			-- 		require("vgit").buffer_reset()
-			-- 	end,
-			-- 	["n <leader>gd"] = function()
-			-- 		require("vgit").project_diff_preview()
-			-- 	end,
-			-- 	["n <leader>gx"] = function()
-			-- 		require("vgit").toggle_diff_preference()
-			-- 	end,
-			-- },
+			keymaps = {
+				["n <C-k>"] = function() vg.hunk_up() end,
+				{
+					mode = "n",
+					key = "<C-j>",
+					handler = "hunk_down",
+					desc = "Go down in the direction of the hunk",
+				},
+				["n <leader>gs"] = function() require("vgit").buffer_hunk_stage() end,
+				["n <leader>gr"] = function() require("vgit").buffer_hunk_reset() end,
+				["n <leader>gp"] = function() require("vgit").buffer_hunk_preview() end,
+				["n <leader>gb"] = "buffer_blame_preview",
+				["n <leader>gf"] = function() require("vgit").buffer_diff_preview() end,
+				["n <leader>gh"] = function() require("vgit").buffer_history_preview() end,
+				["n <leader>gu"] = function() require("vgit").buffer_reset() end,
+				["n <leader>gd"] = function() require("vgit").project_diff_preview() end,
+				["n <leader>gx"] = function() require("vgit").toggle_diff_preference() end,
+			},
 			settings = {
 				-- You can either allow corresponding mapping for existing hl, or re-define them yourself entirely.
 				hls = {
@@ -108,9 +89,7 @@ return {
 					format = function(blame, git_config)
 						local config_author = git_config["user.name"]
 						local author = blame.author
-						if config_author == author then
-							author = "You"
-						end
+						if config_author == author then author = "You" end
 						local time = os.difftime(os.time(), blame.author_time) / (60 * 60 * 24 * 30 * 12)
 						local time_divisions = {
 							{ 1, "years" },

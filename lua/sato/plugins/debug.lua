@@ -107,6 +107,13 @@ return {
 				cwd = "${workspaceFolder}",
 				request = "launch",
 			},
+			{
+				name = "Run Debugger Arrach",
+				type = "pwa-node",
+				cwd = "${workspaceFolder}",
+				request = "attach",
+        port = 9229
+			},
 		}
 
 		for _, language in ipairs(js_filetypes) do
