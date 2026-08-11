@@ -152,6 +152,26 @@ return {
 			focus = "input",
 			show_delay = 5000,
 			limit_live = 10000,
+			actions = {
+				flash = function(picker)
+					require("flash").jump({
+						pattern = "^",
+						label = { after = { 0, 0 } },
+						search = {
+							mode = "search",
+							exclude = {
+								function(win)
+									return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "snacks_picker_list"
+								end,
+							},
+						},
+						action = function(match)
+							local idx = picker.list:row2idx(match.pos[1])
+							picker.list:_move(idx, true, true)
+						end,
+					})
+				end,
+			},
 			layout = {
 				cycle = true,
 				--- Use the default layout or vertical if the window is too narrow
@@ -252,6 +272,8 @@ return {
 						-- to close the picker on ESC instead of going to normal mode,
 						-- add the following keymap to your config
 						-- ["<Esc>"] = { "close", mode = { "n", "i" } },
+						["<a-s>"] = { "flash", mode = { "n", "i" } },
+						["s"] = { "flash" },
 						["/"] = "toggle_focus",
 						["<C-Down>"] = { "history_forward", mode = { "i", "n" } },
 						["<C-Up>"] = { "history_back", mode = { "i", "n" } },

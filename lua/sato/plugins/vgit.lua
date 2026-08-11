@@ -1,7 +1,7 @@
 return {
 	"tanvirtin/vgit.nvim",
+  desc = "View git info on buffer",
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
-	desc = "View git info on buffer",
 	enabled = false,
 	event = "VimEnter",
 	config = function()

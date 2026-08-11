@@ -1,5 +1,6 @@
 return {
 	"tpope/vim-fugitive",
+  desc = "git client",
 	event = "VeryLazy",
 	config = function()
 		vim.keymap.set("n", "<leader>gs", vim.cmd.Git)

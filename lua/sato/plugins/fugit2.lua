@@ -1,5 +1,6 @@
 return {
 	"SuperBo/fugit2.nvim",
+  desc = "A Git client for Neovim",
 	build = false,
 	lazy = true,
 	opts = {

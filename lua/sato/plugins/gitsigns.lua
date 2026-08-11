@@ -1,5 +1,6 @@
-return { -- Adds git related signs for managing changes
-	"lewis6991/gitsigns.nvim",
+return {
+  "lewis6991/gitsigns.nvim",
+  desc = "git related signs",
 	event = "VeryLazy",
 	opts = {
 		signs = {

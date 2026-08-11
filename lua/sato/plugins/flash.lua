@@ -1,5 +1,6 @@
 return {
 	"folke/flash.nvim",
+	desc = "Flash jump",
 	event = "VeryLazy",
 	opts = {
 		labels = "asdfghjklqwertyuiopzxcvbnm",
@@ -23,5 +24,15 @@ return {
 			desc = "Treesitter Search",
 		},
 		{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+		{
+			"<c-s>",
+			mode = { "n", "x", "o" },
+			function()
+				require("flash").jump({
+					pattern = vim.fn.expand("<cword>"),
+				})
+			end,
+			desc = "Initialize flash with the work under the cursor",
+		},
 	},
 }

@@ -1,7 +1,7 @@
-return { -- Useful plugin to show you pending keybinds.
-	"folke/which-key.nvim",
+return {
+  "folke/which-key.nvim",
+	desc = "Show keybinds",
 	event = "VeryLazy",
-    desc = "Show keybinds",
 	opts_extend = { "spec" },
 	opts = {
 		preset = "helix",
@@ -95,9 +95,7 @@ return { -- Useful plugin to show you pending keybinds.
 		-- Start hidden and wait for a key to be pressed before showing the popup
 		-- Only used by enabled xo mapping modes.
 		---@param ctx { mode: string, operator: string }
-		defer = function(ctx)
-			return ctx.mode == "V" or ctx.mode == "<C-V>"
-		end,
+		defer = function(ctx) return ctx.mode == "V" or ctx.mode == "<C-V>" end,
 		plugins = {
 			marks = true, -- shows a list of your marks on ' and `
 			registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -143,24 +141,10 @@ return { -- Useful plugin to show you pending keybinds.
 			scroll_down = "<M-d>", -- binding to scroll down inside the popup
 			scroll_up = "<M-u>", -- binding to scroll up inside the popup
 		},
-		---@type (string|wk.Sorter)[]
-		--- Mappings are sorted using configured sorters and natural sort of the keys
-		--- Available sorters:
-		--- * local: buffer-local mappings first
-		--- * order: order of the items (Used by plugins like marks / registers)
-		--- * group: groups last
-		--- * alphanum: alpha-numerical first
-		--- * mod: special modifier keys last
-		--- * manual: the order the mappings were added
-		--- * case: lower-case first
 		sort = { "local", "order", "group", "alphanum", "mod" },
-		-- Functions/Lua Patterns for formatting the labels
-		---@type table<string, ({[1]:string, [2]:string}|fun(str:string):string)[]>
 		replace = {
 			key = {
-				function(key)
-					return require("which-key.view").format(key)
-				end,
+				function(key) return require("which-key.view").format(key) end,
 				-- { "<Space>", "SPC" },
 			},
 			desc = {
@@ -186,16 +170,12 @@ return { -- Useful plugin to show you pending keybinds.
 	keys = {
 		{
 			"<leader>?",
-			function()
-				require("which-key").show({ global = true })
-			end,
+			function() require("which-key").show({ global = true }) end,
 			desc = "Buffer Keymaps (which-key)",
 		},
 		{
 			"<c-w><space>",
-			function()
-				require("which-key").show({ keys = "<c-w>", loop = true })
-			end,
+			function() require("which-key").show({ keys = "<c-w>", loop = true }) end,
 			desc = "Window Hydra Mode (which-key)",
 		},
 	},

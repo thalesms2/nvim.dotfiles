@@ -1,11 +1,11 @@
 return {
 	"NeogitOrg/neogit",
-    lazy = true,
-    desc = "Git integration",
-    cmd = { "Neogit", "Neogit commit" },
-    keys = {
-        { "<leader>ng", "<cmd>Neogit<CR>", desc = "[N]eo[G]it", mode = "n" },
-    },
+	lazy = true,
+	desc = "Git integration",
+	cmd = { "Neogit", "Neogit commit" },
+	keys = {
+		{ "<leader>ng", "<cmd>Neogit<CR>", desc = "[N]eo[G]it", mode = "n" },
+	},
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
 		"sindrets/diffview.nvim", -- optional - Diff integration

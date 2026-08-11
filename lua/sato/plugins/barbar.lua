@@ -1,5 +1,6 @@
 return {
 	"romgrk/barbar.nvim",
+  desc = "barra de buffers e abas",
   enabled = false,
 	dependencies = {
 		"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status

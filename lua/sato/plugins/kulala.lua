@@ -1,6 +1,7 @@
 return {
 	"mistweaverco/kulala.nvim",
-    lazy = true,
+  desc = "HTTP client for Neovim inspired by VSCode REST Client",
+	lazy = true,
 	keys = {
 		{ "<leader>Rs", desc = "Send request" },
 		{ "<leader>Ra", desc = "Send all requests" },
@@ -39,9 +40,7 @@ return {
 			["application/json"] = {
 				ft = "json",
 				formatter = vim.fn.executable("jq") == 1 and { "jq", "." },
-				pathresolver = function(...)
-					return require("kulala.parser.jsonpath").parse(...)
-				end,
+				pathresolver = function(...) return require("kulala.parser.jsonpath").parse(...) end,
 			},
 			["application/xml"] = {
 				ft = "xml",
@@ -134,26 +133,26 @@ return {
 		-- or override default keymaps as shown in the example below.
 		---@type boolean|table
 		global_keymaps = true,
-    {
-      ["Send request"] = { -- sets global mapping
-        "<leader>Rs",
-        function() require("kulala").run() end,
-        mode = { "n", "v" }, -- optional mode, default is n
-        desc = "Send request" -- optional description, otherwise inferred from the key
-      },
-      ["Send all requests"] = {
-        "<leader>Ra",
-        function() require("kulala").run_all() end,
-        mode = { "n", "v" },
-        ft = "http", -- sets mapping for *.http files only
-      },
-      ["Replay the last request"] = {
-        "<leader>Rr",
-        function() require("kulala").replay() end,
-        ft = { "http", "rest" }, -- sets mapping for specified file types
-      },
-    ["Find request"] = false -- set to false to disable
-    },
+		{
+			["Send request"] = { -- sets global mapping
+				"<leader>Rs",
+				function() require("kulala").run() end,
+				mode = { "n", "v" }, -- optional mode, default is n
+				desc = "Send request", -- optional description, otherwise inferred from the key
+			},
+			["Send all requests"] = {
+				"<leader>Ra",
+				function() require("kulala").run_all() end,
+				mode = { "n", "v" },
+				ft = "http", -- sets mapping for *.http files only
+			},
+			["Replay the last request"] = {
+				"<leader>Rr",
+				function() require("kulala").replay() end,
+				ft = { "http", "rest" }, -- sets mapping for specified file types
+			},
+			["Find request"] = false, -- set to false to disable
+		},
 
 		-- Kulala UI keymaps, override with custom keymaps as required (check docs or {plugins_path}/kulala.nvim/lua/kulala/config/keymaps.lua for details)
 		---@type boolean|table

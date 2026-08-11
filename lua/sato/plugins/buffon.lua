@@ -1,5 +1,6 @@
 return {
 	"francescarpi/buffon.nvim",
+  desc = "ferramenta de marcadores e atalhos para buffers",
 	branch = "main",
 	---@type BuffonConfig
 	opts = {

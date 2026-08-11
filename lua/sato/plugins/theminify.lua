@@ -1,15 +1,28 @@
 return {
 	"lmantw/themify.nvim",
 	lazy = false,
-	priority = 999,
+	priority = 1000,
 	opts = {
+		async = true,
+		activity = true,
+		-- loader = function()
+		-- dentro config do thema:
+		-- before = function()
+		-- after = function()
+		-- blacklist = {},
+		-- whitelist = {},
+		-- adiciona transparencia no background
+		-- after = function()
+		-- 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+		-- 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+		-- end,
 		{
 			"EdenEast/nightfox.nvim",
 			after = function()
 				vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 				vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 			end,
-			config = function()
+			before = function()
 				require("nightfox").setup({
 					options = {
 						-- Compiled file's destination location
@@ -82,7 +95,7 @@ return {
 				vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 				vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 			end,
-			config = function()
+			before = function()
 				require("gruvbox").setup({
 					terminal_colors = true, -- add neovim terminal colors
 					undercurl = true,
@@ -115,7 +128,7 @@ return {
 				vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 				vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 			end,
-			config = function()
+			before = function()
 				require("tokyonight").setup({
 					-- your configuration comes here
 					-- or leave it empty to use the default settings
@@ -136,13 +149,14 @@ return {
 		},
 		{
 			"rose-pine/neovim",
-			after = function()
-				vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-				vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-			end,
-			config = function()
+			blacklist = { "rose-pine-dawn" },
+			-- after = function()
+			-- 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+			-- 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+			-- end,
+			before = function()
 				require("rose-pine").setup({
-					disable_background = true,
+					disable_background = false,
 					styles = {
 						italic = false,
 					},
@@ -180,7 +194,7 @@ return {
 				vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 				vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 			end,
-			config = function()
+			before = function()
 				require("cyberdream").setup({
 					transparent = true,
 					bordeless_pickers = true,
@@ -253,10 +267,15 @@ return {
 			end,
 		},
 		{ "Abstract-IDE/Abstract-cs" },
-		{ "rafamadriz/neon" },
 		{ "Mofiqul/vscode.nvim" },
 		{ "askfiy/visual_studio_code" },
-		{ "marko-cerovac/material.nvim" },
+		{
+			"marko-cerovac/material.nvim",
+			after = function()
+				vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+				vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+			end,
+		},
 		{ "bluz71/vim-nightfly-colors" },
 		{ "bluz71/vim-moonfly-colors" },
 		{ "mhartington/oceanic-next" },
@@ -264,7 +283,6 @@ return {
 		{ "sainnhe/edge" },
 		{ "Th3Whit3Wolf/space-nvim" },
 		{ "ray-x/aurora" },
-		{ "ray-x/starry.nvim" },
 		{ "tanvirtin/monokai.nvim" },
 		{ "ofirgall/ofirkai.nvim" },
 		{ "fenetikm/falcon" },
@@ -285,11 +303,18 @@ return {
 		{ "yashguptaz/calvera-dark.nvim" },
 		{ "nxvu699134/vn-night.nvim" },
 		{ "projekt0n/github-nvim-theme" },
-		{ "frenzyexists/aquarium-vim" },
 		{ "ldelossa/vimdark" },
 		{ "Everblush/nvim" },
 		{ url = "https://codeberg.org/jthvai/lavender.nvim", branch = "stable" },
 		{ "navarasu/onedark.nvim" },
+		{
+			"T-b-t-nchos/Aquavium.nvim",
+			before = function()
+				require("aquavium").setup({
+					transparent = true,
+				})
+			end,
+		},
 		"default",
 	},
 }

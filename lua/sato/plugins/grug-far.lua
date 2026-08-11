@@ -1,23 +1,24 @@
 return {
-  "MagicDuck/grug-far.nvim",
-  lazy = true,
-  opts = { headerMaxWidth = 80 },
-  cmd = "GrugFar",
-  keys = {
-    {
-      "<leader>FR",
-      function()
-        local grug = require("grug-far")
-        local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-        grug.open({
-          transient = true,
-          prefills = {
-            filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-          },
-        })
-      end,
-      mode = { "n", "v" },
-      desc = "[F]ind and [R]eplace",
-    },
-  },
+	"MagicDuck/grug-far.nvim",
+	desc = "Find and replace in project",
+	lazy = true,
+	opts = { headerMaxWidth = 80 },
+	cmd = "GrugFar",
+	keys = {
+		{
+			"<leader>FR",
+			function()
+				local grug = require("grug-far")
+				local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+				grug.open({
+					transient = true,
+					prefills = {
+						filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+					},
+				})
+			end,
+			mode = { "n", "v" },
+			desc = "[F]ind and [R]eplace",
+		},
+	},
 }

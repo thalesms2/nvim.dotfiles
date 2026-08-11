@@ -40,7 +40,6 @@ return {
 		}
 		dap.set_log_level("TRACE")
 
-
 		if not dap.adapters["node"] then
 			dap.adapters["node"] = function(cb, config)
 				if config.type == "node" then config.type = "pwa-node" end
@@ -112,8 +111,8 @@ return {
 				type = "pwa-node",
 				cwd = "${workspaceFolder}",
 				request = "attach",
-        port = 9229,
-        restart = true,
+				port = 9229,
+				restart = true,
 			},
 		}
 
@@ -197,13 +196,11 @@ return {
 		end
 
 		dap.listeners.after.event_initialized["dapui_config"] = dapui.open
-    local close_ui_smart = function(session)
-      vim.notify("session\n" .. vim.inspect(dap.session()), vim.log.levels.INFO)
-      if session and session.config and session.config.restart then
-        return
-      end
-      dapui.close()
-    end
+		local close_ui_smart = function(session)
+			vim.notify("session\n" .. vim.inspect(dap.session()), vim.log.levels.INFO)
+			if session and session.config and session.config.restart then return end
+			dapui.close()
+		end
 		dap.listeners.before.event_terminated["dapui_config"] = close_ui_smart
 		dap.listeners.before.event_exited["dapui_config"] = close_ui_smart
 	end,

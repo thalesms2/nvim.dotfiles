@@ -1,6 +1,7 @@
 return {
 	{
 		"sphamba/smear-cursor.nvim",
+    desc = "animação do cursor ao se mover",
 		opts = {
 			smear_between_buffers = false,
 			smear_between_neighbor_lines = false,
@@ -14,6 +15,7 @@ return {
 	},
 	{
 		"danilamihailov/beacon.nvim",
+    desc = "animação para localizar cursor",
 		opts = {
 			enabled = true, --- (boolean | fun():boolean) check if enabled
 			speed = 2, --- integer speed at wich animation goes

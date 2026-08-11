@@ -1,5 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
+  desc = "Statusline",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	opts = function()
 		local noice = require("noice")

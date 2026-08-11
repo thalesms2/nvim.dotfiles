@@ -1,6 +1,6 @@
--- fechamento automático de pares de caracteres
 return {
 	"saghen/blink.pairs",
+  desc = "fechamento automático de pares de caracteres",
 	dependencies = "saghen/blink.lib",
 
 	version = "*",

@@ -1,6 +1,6 @@
--- drop-down menus
 return {
 	"Bekaboo/dropbar.nvim",
+  desc = "drop-down menus",
 	-- optional, but required for fuzzy finder support
 	dependencies = {
 		"nvim-telescope/telescope-fzf-native.nvim",
