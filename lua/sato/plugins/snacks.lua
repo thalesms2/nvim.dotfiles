@@ -142,7 +142,7 @@ return {
 		dashboard = { enabled = false },
 		explorer = { enabled = false },
 		image = { enabled = true },
-		indent = { enabled = false },
+		indent = { enabled = true },
 		input = { enabled = false },
 		lazygit = { enabled = true },
 		picker = {

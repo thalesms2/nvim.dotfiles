@@ -1,7 +1,7 @@
 -- Better peek lines on the buffer
 return {
   'nacro90/numb.nvim',
-  enabled = false,
+  enabled = true,
   config = function()
     require('numb').setup({
         centered_peeking = true,

@@ -9,7 +9,6 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
 		"sindrets/diffview.nvim", -- optional - Diff integration
-		"nvim-telescope/telescope.nvim", -- optional
 	},
 	opts = {
 		-- Hides the hints at the top of the status buffer
@@ -46,12 +45,6 @@ return {
 			["gitlab.com"] = "https://gitlab.com/${owner}/${repository}/merge_requests/new?merge_request[source_branch]=${branch_name}",
 			["azure.com"] = "https://dev.azure.com/${owner}/_git/${repository}/pullrequestcreate?sourceRef=${branch_name}&targetRef=${target}",
 		},
-		-- Allows a different telescope sorter. Defaults to 'fuzzy_with_index_bias'. The example below will use the native fzf
-		-- sorter instead. By default, this function returns `nil`.
-		telescope_sorter = function()
-			return require("telescope").extensions.fzf.native_fzf_sorter()
-		end,
-		-- Persist the values of switches/options within and across sessions
 		remember_settings = true,
 		-- Scope persisted settings on a per-project basis
 		use_per_project_settings = true,

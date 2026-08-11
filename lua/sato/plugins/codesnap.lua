@@ -1,8 +1,8 @@
 return {
 	"mistricky/codesnap.nvim",
-    desc = "Print code",
-    lazy = true,
-    cmd = { "CodeSnap", "CodeSnapSave", "CodeSnapASCII" },
+	desc = "Print code",
+	lazy = true,
+	cmd = { "CodeSnap", "CodeSnapSave", "CodeSnapASCII" },
 	build = "make",
 	keys = {
 		{ "<leader>cs", "<cmd>CodeSnap<cr>", mode = "x", desc = "Save selected code snapshot into clipboard" },
@@ -13,8 +13,7 @@ return {
 		save_path = "~/Imagens/Codesnap",
 		has_breadcrumbs = true,
 		bg_theme = "bamboo",
-        watermark = "",
-        bg_padding = 0,
+		watermark = "",
+		bg_padding = 0,
 	},
 }
-

@@ -70,12 +70,11 @@ return {
 			end,
 		},
 		{
-			"comfysage/evergarden",
+			"everviolet/nvim",
 			after = function()
 				vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 				vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 			end,
-			branch = "mega",
 		},
 		{
 			"ellisonleao/gruvbox.nvim",
@@ -159,47 +158,18 @@ return {
 		},
 		{
 			"catppuccin/nvim",
-			opts = {
-				integrations = {
-					aerial = true,
-					alpha = true,
-					cmp = true,
-					dashboard = true,
-					flash = true,
-					fzf = true,
-					grug_far = true,
-					gitsigns = true,
-					headlines = true,
-					illuminate = true,
-					indent_blankline = { enabled = true },
-					leap = true,
-					lsp_trouble = true,
-					mason = true,
-					markdown = true,
-					mini = true,
-					native_lsp = {
-						enabled = true,
-						underlines = {
-							errors = { "undercurl" },
-							hints = { "undercurl" },
-							warnings = { "undercurl" },
-							information = { "undercurl" },
+			before = function()
+				require("catppuccin").setup({
+					integrations = {
+						snacks = {
+							enabled = true,
+							indent_scope_color = "mauve",
 						},
 					},
-					navic = { enabled = true, custom_bg = "lualine" },
-					neotest = true,
-					neotree = true,
-					noice = true,
-					notify = true,
-					semantic_tokens = true,
-					snacks = true,
-					telescope = true,
-					treesitter = true,
-					treesitter_context = true,
-					which_key = true,
-				},
-			},
+				})
+			end,
 			after = function()
+				-- deixa fundo e fundo de janela flutuante transparentes
 				vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 				vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 			end,
@@ -222,6 +192,104 @@ return {
 				})
 			end,
 		},
+
+		{ "ThorstenRhau/token" },
+		{ "oskarnurm/koda.nvim" },
+		{ "yonatanperel/lake-dweller.nvim" },
+		{ "silentium-theme/silentium.nvim" },
+		{ "serhez/teide.nvim" },
+		{ "datsfilipe/min-theme.nvim" },
+		{
+			"github-main-user/lytmode.nvim",
+			before = function()
+				require("lytmode").setup({
+					-- Enable transparent background
+					transparent = true,
+
+					-- Enable italic comment
+					italic_comments = true,
+
+					-- Enable italic inlay type hints
+					italic_inlayhints = true,
+
+					-- Underline `@markup.link.*` variants
+					underline_links = true,
+
+					-- Disable nvim-tree background color
+					disable_nvimtree_bg = true,
+
+					-- Apply theme colors to terminal
+					terminal_colors = true,
+
+					-- Override colors (see ./lua/lytmode/colors.lua)
+					color_overrides = {
+						lytLineNumber = "#FFFFFF",
+					},
+
+					-- Override highlight groups (see ./lua/lytmode/theme.lua)
+					group_overrides = {
+						-- this supports the same val table as vim.api.nvim_set_hl
+						-- use colors from this colorscheme by requiring lytmode.colors!
+						Cursor = { fg = c.lytBack, bg = c.lytGreen, bold = true },
+					},
+				})
+			end,
+		},
+		{
+			"datsfilipe/vesper.nvim",
+			before = function()
+				require("vesper").setup({
+					transparent = false, -- Boolean: Sets the background to transparent
+					italics = {
+						comments = true, -- Boolean: Italicizes comments
+						keywords = true, -- Boolean: Italicizes keywords
+						functions = true, -- Boolean: Italicizes functions
+						strings = true, -- Boolean: Italicizes strings
+						variables = true, -- Boolean: Italicizes variables
+					},
+					overrides = {}, -- A dictionary of group names, can be a function returning a dictionary or a table.
+					palette_overrides = {},
+				})
+			end,
+		},
+		{ "Abstract-IDE/Abstract-cs" },
+		{ "rafamadriz/neon" },
+		{ "Mofiqul/vscode.nvim" },
+		{ "askfiy/visual_studio_code" },
+		{ "marko-cerovac/material.nvim" },
+		{ "bluz71/vim-nightfly-colors" },
+		{ "bluz71/vim-moonfly-colors" },
+		{ "mhartington/oceanic-next" },
+		{ "glepnir/zephyr-nvim" },
+		{ "sainnhe/edge" },
+		{ "Th3Whit3Wolf/space-nvim" },
+		{ "ray-x/aurora" },
+		{ "ray-x/starry.nvim" },
+		{ "tanvirtin/monokai.nvim" },
+		{ "ofirgall/ofirkai.nvim" },
+		{ "fenetikm/falcon" },
+		{ "uhs-robert/oasis.nvim" },
+		{ "sainnhe/sonokai" },
+		{ "nyoom-engineering/oxocarbon.nvim" },
+		{ "savq/melange-nvim" },
+		{ "andersevenrud/nordic.nvim" },
+		{ "AlexvZyl/nordic.nvim" },
+		{ "shaunsingh/nord.nvim" },
+		{ "Tsuzat/NeoSolarized.nvim" },
+		{ "sainnhe/everforest" },
+		{ "sainnhe/gruvbox-material" },
+		{ "neanias/everforest-nvim" },
+		{ "NTBBloodbath/doom-one.nvim" },
+		{ "dracula/vim" },
+		{ "Mofiqul/dracula.nvim" },
+		{ "yashguptaz/calvera-dark.nvim" },
+		{ "nxvu699134/vn-night.nvim" },
+		{ "projekt0n/github-nvim-theme" },
+		{ "frenzyexists/aquarium-vim" },
+		{ "ldelossa/vimdark" },
+		{ "Everblush/nvim" },
+		{ url = "https://codeberg.org/jthvai/lavender.nvim", branch = "stable" },
+		{ "navarasu/onedark.nvim" },
 		"default",
 	},
 }

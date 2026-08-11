@@ -12,7 +12,6 @@ return {
 		keymap = { preset = "default" },
 		appearance = { nerd_font_variant = "normal" },
 		completion = { documentation = { auto_show = false } },
-        snippets = { preset = "luasnip" },
 		sources = {
 			default = { "lazydev", "lsp", "ripgrep", "path", "snippets", "buffer", "emoji", "nerdfont" },
 			per_filetype = {

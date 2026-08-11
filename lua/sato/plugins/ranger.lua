@@ -1,6 +1,6 @@
 return {
 	"kelly-lin/ranger.nvim",
-    lazy = true,
+	lazy = true,
 	config = function()
 		local ranger_nvim = require("ranger-nvim")
 		require("ranger-nvim").setup({
@@ -21,14 +21,12 @@ return {
 			},
 		})
 	end,
-    keys = {
-        {
-        "<leader>rr",
-        function()
-            require("ranger-nvim").open(true)
-        end,
-        mode = "n",
-        desc = "[R]ange[R]",
-        },
-    }
+	keys = {
+		{
+			"<leader>rr",
+			function() require("ranger-nvim").open(true) end,
+			mode = "n",
+			desc = "[R]ange[R]",
+		},
+	},
 }

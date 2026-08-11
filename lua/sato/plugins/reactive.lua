@@ -1,6 +1,6 @@
 return {
 	"rasulomaroff/reactive.nvim",
-    event = "VeryLazy",
+	event = "VeryLazy",
 	desc = "highlights on mode changes and much more",
 	config = function()
 		require("reactive").setup({

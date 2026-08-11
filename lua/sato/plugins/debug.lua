@@ -108,11 +108,12 @@ return {
 				request = "launch",
 			},
 			{
-				name = "Run Debugger Arrach",
+				name = "Run Debugger Attach",
 				type = "pwa-node",
 				cwd = "${workspaceFolder}",
 				request = "attach",
-        port = 9229
+        port = 9229,
+        restart = true,
 			},
 		}
 
@@ -196,7 +197,14 @@ return {
 		end
 
 		dap.listeners.after.event_initialized["dapui_config"] = dapui.open
-		dap.listeners.before.event_terminated["dapui_config"] = dapui.close
-		dap.listeners.before.event_exited["dapui_config"] = dapui.close
+    local close_ui_smart = function(session)
+      vim.notify("session\n" .. vim.inspect(dap.session()), vim.log.levels.INFO)
+      if session and session.config and session.config.restart then
+        return
+      end
+      dapui.close()
+    end
+		dap.listeners.before.event_terminated["dapui_config"] = close_ui_smart
+		dap.listeners.before.event_exited["dapui_config"] = close_ui_smart
 	end,
 }
