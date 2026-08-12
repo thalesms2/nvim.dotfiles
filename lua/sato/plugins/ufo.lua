@@ -1,8 +1,15 @@
 return {
 	"kevinhwang91/nvim-ufo",
+	desc = "folding",
 	dependencies = {
 		"kevinhwang91/promise-async",
 	},
+	-- keys = {
+	-- 	{ "zR", require("ufo").openAllFolds(), desc = "open all folds" },
+	-- 	{ "zM", require("ufo").closeAllFolds(), desc = "close all folds" },
+	-- 	{ "zr", require("ufo").openFoldsExceptKinds(), desc = "open fold except kinds" },
+	-- 	{ "zR", require("ufo").closeFoldsWith(), desc = "close fold with" },
+	-- },
 	config = function()
 		vim.o.foldcolumn = "0" -- '0' is not bad
 		vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value

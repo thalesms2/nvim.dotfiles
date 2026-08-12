@@ -7,7 +7,7 @@ return {
 	event = "VeryLazy",
 	config = function()
 		require("obsidian").setup({
-            legacy_commands = false,
+			legacy_commands = false,
 			workspaces = {
 				{
 					name = "Obsidian",
@@ -101,16 +101,12 @@ return {
 			},
 			attachments = {
 				folder = "assets/imgs",
-				img_name_func = function()
-					return string.format("%s-", os.time())
-				end,
-				img_text_func = function()
-					return string.format("Pasted image %s", os.date("%Y%m%d%H%M%S"))
-				end,
+				img_name_func = function() return string.format("%s-", os.time()) end,
+				img_text_func = function() return string.format("Pasted image %s", os.date("%Y%m%d%H%M%S")) end,
 			},
 		})
 
-		vim.keymap.set("n", "<leader>sO", "<cmd>ObsidianQuickSwitch<cr>", { desc = "[S]earch [O]bsidian files" })
+		vim.keymap.set("n", "<leader>fo", "<cmd>Obsidian quick_switch<cr>", { desc = "[F]ind [O]bsidian note" })
 		vim.keymap.set("n", "<leader>ow", "<cmd>ObsidianWorkspace<cr>", { desc = "[O]bsidian change [W]orkspace" })
 		vim.keymap.set("n", "<leader>on", "<cmd>ObsidianNew<cr>", { desc = "[O]bsidian [N]ew file" })
 		vim.keymap.set("n", "<leader>so", "<cmd>ObsidianSearch<cr>", { desc = "[S]earch by grep in [O]bsidian files" })

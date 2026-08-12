@@ -1,7 +1,7 @@
 return {
 	"Bekaboo/dropbar.nvim",
   desc = "drop-down menus",
-	-- optional, but required for fuzzy finder support
+  enabled = true,
 	dependencies = {
 		"nvim-telescope/telescope-fzf-native.nvim",
 		build = "make",
@@ -11,5 +11,6 @@ return {
 		vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
 		vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
 		vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
+    -- na menu `i` para abrir o fzf search
 	end,
 }

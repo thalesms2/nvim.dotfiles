@@ -6,6 +6,17 @@ return {
 		"moyiz/blink-emoji.nvim",
 		"MahanRahmati/blink-nerdfont.nvim",
 		{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+		{
+			"folke/lazydev.nvim",
+      desc = "configures luaLS para lazily updating workspace libraries (mostrar plugins quando der require())",
+			ft = "lua",
+			opts = {
+				library = {
+					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+					{ path = "snacks.nvim", words = { "Snacks" } },
+				},
+			},
+		},
 	},
 	version = "1.*",
 	opts = {
@@ -161,17 +172,16 @@ return {
 				buffer = {
 					opts = {
 						get_bufnrs = function()
-							return vim.tbl_filter(function(bufnr)
-								return vim.bo[bufnr].buftype == ""
-							end, vim.api.nvim_list_bufs())
+							return vim.tbl_filter(
+								function(bufnr) return vim.bo[bufnr].buftype == "" end,
+								vim.api.nvim_list_bufs()
+							)
 						end,
 					},
 				},
 				path = {
 					opts = {
-						get_cwd = function(_)
-							return vim.fn.getcwd()
-						end,
+						get_cwd = function(_) return vim.fn.getcwd() end,
 					},
 				},
 				lazydev = {
