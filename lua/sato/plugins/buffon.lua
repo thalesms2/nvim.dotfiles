@@ -4,7 +4,6 @@ return {
 	branch = "main",
 	---@type BuffonConfig
 	opts = {
-
 		cyclic_navigation = true,
 		--- possible values:
 		---   "start": buffers are added at the begginning of the buffers list
@@ -37,15 +36,15 @@ return {
 			unsaved_indicator = "#f70067",
 			transparent = false,
 		},
-		leader_key = ";",
+		leader_key = "<c-;>",
 		mapping_chars = "qweryuiop",
 		keybindings = {
-			goto_next_buffer = "<s-j>",
-			goto_previous_buffer = "<s-k>",
-			move_buffer_up = "<s-l>",
-			move_buffer_down = "<s-h>",
-			move_buffer_top = "<s-t>",
-			move_buffer_bottom = "<s-b>",
+			goto_next_buffer = "<buffonleader>j",
+			goto_previous_buffer = "<buffonleader>k",
+			move_buffer_up = "<buffonleader>l",
+			move_buffer_down = "<buffonleader>h",
+			move_buffer_top = "<buffonleader>t",
+			move_buffer_bottom = "<buffonleader>b",
 			toggle_buffon_window = "<buffonleader>n",
 			--- Toggle window position allows moving the main window position
 			--- between top-right and bottom-right positions

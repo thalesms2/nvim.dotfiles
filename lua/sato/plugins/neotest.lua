@@ -1,60 +1,195 @@
 return {
 	"nvim-neotest/neotest",
-	lazy = true,
+	event = { "BufReadPost", "BufNewFile" },
 	dependencies = {
 		"nvim-neotest/nvim-nio",
 		"nvim-lua/plenary.nvim",
 		"antoinemadec/FixCursorHold.nvim",
 		"nvim-treesitter/nvim-treesitter",
-		"olimorris/neotest-phpunit",
+		"nvim-neotest/neotest-jest",
 	},
 	config = function()
 		require("neotest").setup({
 			adapters = {
-				require("neotest-phpunit")({
-					command = function()
-						local lando_exists = vim.fn.filereadable(vim.fn.getcwd() .. "/.lando.yml") == 1
-
-						-- Executa o comando adequado dependendo da presença do arquivo .lando.yml
-						local command = lando_exists and "lando phpunit" or "/usr/bin/phpunit"
-						return command
-					end,
+				require("neotest-jest")({
+					jestCommand = "npm test --",
+					jestArguments = function(defaultArguments, context) return defaultArguments end,
+					jestConfigFile = "custom.jest.config.ts",
+					env = { CI = true },
+					cwd = function(path) return vim.fn.getcwd() end,
+					isTestFile = require("neotest-jest.jest-util").defaultIsTestFile,
 				}),
 			},
+			benchmark = {
+				enabled = true,
+			},
+			consumers = {},
+			default_strategy = "integrated",
+			diagnostic = {
+				enabled = true,
+				severity = 1,
+			},
+			discovery = {
+				concurrent = 0,
+				enabled = true,
+			},
+			floating = {
+				max_height = 0.6,
+				max_width = 0.6,
+				options = {},
+			},
+			highlights = {
+				adapter_name = "NeotestAdapterName",
+				border = "NeotestBorder",
+				dir = "NeotestDir",
+				expand_marker = "NeotestExpandMarker",
+				failed = "NeotestFailed",
+				file = "NeotestFile",
+				focused = "NeotestFocused",
+				indent = "NeotestIndent",
+				marked = "NeotestMarked",
+				namespace = "NeotestNamespace",
+				passed = "NeotestPassed",
+				running = "NeotestRunning",
+				select_win = "NeotestWinSelect",
+				skipped = "NeotestSkipped",
+				target = "NeotestTarget",
+				test = "NeotestTest",
+				unknown = "NeotestUnknown",
+				watching = "NeotestWatching",
+			},
+			icons = {
+				child_indent = "│",
+				child_prefix = "├",
+				collapsed = "─",
+				dir = "",
+				expanded = "╮",
+				failed = "",
+				file = "",
+				final_child_indent = " ",
+				final_child_prefix = "╰",
+				namespace = "",
+				non_collapsible = "─",
+				notify = "",
+				passed = "",
+				running = "",
+				running_animated = { "/", "|", "\\", "-", "/", "|", "\\", "-" },
+				skipped = "",
+				test = "",
+				unknown = "",
+				watching = "",
+			},
+			jump = {
+				enabled = true,
+			},
+			log_level = 3,
+			output = {
+				enabled = true,
+				open_on_run = true,
+			},
+			output_panel = {
+				enabled = true,
+				open = "botright split | resize 15",
+			},
+			projects = {},
+			quickfix = {
+				enabled = true,
+				open = function() require("trouble").open({ mode = "quickfix", focus = false }) end,
+			},
+			run = {
+				enabled = true,
+			},
+			running = {
+				concurrent = true,
+			},
+			state = {
+				enabled = true,
+			},
+			status = {
+				enabled = true,
+				signs = true,
+				virtual_text = true,
+			},
+			strategies = {
+				integrated = {
+					height = 40,
+					width = 120,
+				},
+			},
+			summary = {
+				animated = true,
+				count = true,
+				enabled = true,
+				expand_errors = true,
+				follow = true,
+				mappings = {
+					attach = "a",
+					clear_marked = "M",
+					clear_target = "T",
+					debug = "d",
+					debug_marked = "D",
+					expand = { "<CR>", "<2-LeftMouse>" },
+					expand_all = "e",
+					help = "?",
+					jumpto = "i",
+					mark = "m",
+					next_failed = "J",
+					next_sibling = ">",
+					output = "o",
+					parent = "P",
+					prev_failed = "K",
+					prev_sibling = "<",
+					run = "r",
+					run_marked = "R",
+					short = "O",
+					stop = "u",
+					target = "t",
+					watch = "w",
+				},
+				open = "botright vsplit | vertical resize 50",
+			},
+			watch = {
+				enabled = true,
+				symbol_queries = {},
+			},
 		})
-
-		vim.keymap.set("n", "<leader>tr", function()
-			require("neotest").run.run({
-				suite = false,
-				testify = true,
-			})
-		end, { desc = "Debug: Running Nearest Test" })
-
-		vim.keymap.set("n", "<leader>tv", function()
-			require("neotest").summary.toggle()
-		end, { desc = "Debug: Summary Toggle" })
-
-		vim.keymap.set("n", "<leader>ts", function()
-			require("neotest").run.run({
-				suite = true,
-				testify = true,
-			})
-		end, { desc = "Debug: Running Test Suite" })
-
-		vim.keymap.set("n", "<leader>td", function()
-			require("neotest").run.run({
-				suite = false,
-				testify = true,
-				strategy = "dap",
-			})
-		end, { desc = "Debug: Debug Nearest Test" })
-
-		vim.keymap.set("n", "<leader>to", function()
-			require("neotest").output.open()
-		end, { desc = "Debug: Open test output" })
-
-		vim.keymap.set("n", "<leader>ta", function()
-			require("neotest").run.run(vim.fn.getcwd())
-		end, { desc = "Debug: Open test output" })
 	end,
+	keys = {
+		{
+			"<leader>nr",
+			mode = "n",
+			"<cmd>lua require('neotest').run.run({ suite = false, testify = true })<cr>",
+			desc = "Debug: Running Nearest Test",
+		},
+		{
+			"<leader>nv",
+			mode = "n",
+			"<cmd>lua require('neotest').summary.toggle()<cr>",
+			desc = "Debug: Summary Toggle",
+		},
+		{
+			"<leader>ns",
+			mode = "n",
+			"<cmd>lua require('neotest').run.run({ suite = true, testify = true,  })<cr>",
+			desc = "Debug: Running Test Suite",
+		},
+		{
+			"<leader>nd",
+			mode = "n",
+			"<cmd>lua require('neotest').run.run({ suite = false, testify = true, strategy = 'dap',  })<cr>",
+			desc = "Debug: Debug Nearest Test",
+		},
+		{
+			"<leader>no",
+			mode = "n",
+			"<cmd>lua require('neotest').output.open()<cr>",
+			desc = "Debug: Open test output",
+		},
+		{
+			"<leader>na",
+			mode = "n",
+			"<cmd>lua require('neotest').run.run(vim.fn.getcwd())<cr>",
+			desc = "Debug: Open test output",
+		},
+	},
 }

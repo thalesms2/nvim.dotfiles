@@ -197,9 +197,8 @@ return {
 
 		dap.listeners.after.event_initialized["dapui_config"] = dapui.open
 		local close_ui_smart = function(session)
-			vim.notify("session\n" .. vim.inspect(dap.session()), vim.log.levels.INFO)
-			if session and session.config and session.config.restart then return end
-			dapui.close()
+			-- if session and session.config and session.config.restart then return end
+			-- dapui.close()
 		end
 		dap.listeners.before.event_terminated["dapui_config"] = close_ui_smart
 		dap.listeners.before.event_exited["dapui_config"] = close_ui_smart
