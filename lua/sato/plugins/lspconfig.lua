@@ -57,10 +57,20 @@ return {
 						client
 						and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
 					then
-						map("<leader>th", function()
-							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-						end, "[T]oggle Inlay [H]ints")
+						map(
+							"<leader>th",
+							function()
+								vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+							end,
+							"[T]oggle Inlay [H]ints"
+						)
 					end
+
+					map(
+						"<leader>ca",
+						function() vim.lsp.buf.code_action() end,
+						"[C]ode [A]ction"
+					)
 				end,
 			})
 
@@ -79,9 +89,7 @@ return {
 				virtual_text = {
 					source = "if_many",
 					spacing = 2,
-					format = function(diagnostic)
-						return diagnostic.message
-					end,
+					format = function(diagnostic) return diagnostic.message end,
 				},
 			})
 
@@ -153,10 +161,11 @@ return {
 			})
 
 			-- automatic_enable uses vim.lsp.enable() for each installed Mason server.
-			-- Exclude ts_ls since vtsls is used instead.
+			-- Exclude ts_ls since vtsls is used instead, and jdtls since it's
+			-- started manually by nvim-jdtls (ftplugin/java.lua) with debug bundles.
 			require("mason-lspconfig").setup({
 				automatic_enable = {
-					exclude = { "ts_ls" },
+					exclude = { "ts_ls", "jdtls" },
 				},
 			})
 		end,

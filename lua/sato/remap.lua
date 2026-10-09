@@ -12,11 +12,14 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result cursor centered" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result cursor centered" })
+
 -- greatest remap ever
-vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Cola substituindo sem sobrescrever"})
+vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Cola substituindo sem sobrescrever" })
 
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Copia para a área de transferencia do sistema" })
-vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Copia a linha inteira para a área de transferencia do sistema"})
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Copia a linha inteira para a área de transferencia do sistema" })
 
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Apaga sem sujar a área de transferencia" })
 
@@ -28,7 +31,12 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Anterior da quickfix 
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Próximo da location list" })
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Anterior da location list" })
 
-vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace na palavra do cursor em todo o arquivo"})
+vim.keymap.set(
+	"n",
+	"<leader>r",
+	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ desc = "Replace na palavra do cursor em todo o arquivo" }
+)
 
 -- Move entre janelas
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>")
@@ -63,3 +71,6 @@ vim.keymap.set("n", "<leader>wtf", "<cmd>tabnew %<CR>", { desc = "Open current b
 -- vim.keymap.set("n", "<M-.>", "<c-w>5>", { desc = "Increase horinzontally" })
 -- vim.keymap.set("n", "<M-t>", "<c-w>+<", { desc = "Decrease vertically" })
 -- vim.keymap.set("n", "<M-s>", "<c-w>-<", { desc = "Increase vertically" })
+--
+vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<cr>", { silent = true, desc = "makes file executable" })
+vim.keymap.set("n", "<leader>re", "<cmd>restart<cr>", { desc = "restart neovim" })

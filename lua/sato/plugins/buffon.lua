@@ -12,7 +12,7 @@ return {
 		new_buffer_position = "end",
 		num_pages = 2,
 		open = {
-			by_default = true,
+			by_default = false,
 			offset = {
 				x = 0,
 				y = 0,

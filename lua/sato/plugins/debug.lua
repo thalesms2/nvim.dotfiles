@@ -100,13 +100,6 @@ return {
 				restart = true,
 			},
 			{
-				name = "Run Debugger k",
-				command = "nvm use 24;npm run start:debug",
-				type = "pwa-node",
-				cwd = "${workspaceFolder}",
-				request = "launch",
-			},
-			{
 				name = "Run Debugger Attach",
 				type = "pwa-node",
 				cwd = "${workspaceFolder}",
@@ -115,6 +108,9 @@ return {
 				restart = true,
 			},
 		}
+		-- dap.adapters.java and dap.configurations.java are provided by nvim-jdtls
+		-- (see ftplugin/java.lua) — it bridges DAP <-> JDWP via the java-debug
+		-- Eclipse plugin instead of connecting straight to the raw JDWP socket.
 
 		for _, language in ipairs(js_filetypes) do
 			if not dap.configurations[language] then dap.configurations[language] = dap_configurations end
@@ -143,6 +139,72 @@ return {
 				},
 				log = true,
 				externalConsole = false,
+			},
+		}
+
+		local go_debug_adapter_path = vim.fn.stdpath("data") .. "/mason/bin/go-debug-adapter"
+
+		dap.adapters.go = {
+			type = "executable",
+			command = go_debug_adapter_path,
+			options = {
+				env = {
+					PATH = vim.fn.expand("$HOME/go/bin") .. ":" .. vim.env.PATH,
+				},
+			},
+		}
+
+		dap.configurations.go = {
+			{
+				type = "go",
+				name = "Debug",
+				request = "launch",
+				program = "${file}",
+			},
+			{
+				type = "go",
+				name = "Debug Package",
+				request = "launch",
+				program = "${fileDirname}",
+			},
+			{
+				type = "go",
+				name = "Debug (Arguments)",
+				request = "launch",
+				program = "${file}",
+				args = function()
+					local args_string = vim.fn.input("Arguments: ")
+					return vim.split(args_string, " +")
+				end,
+			},
+			{
+				type = "go",
+				name = "Attach (Local Process)",
+				mode = "local",
+				request = "attach",
+				processId = require("dap.utils").pick_process,
+			},
+			{
+				type = "go",
+				name = "Attach (Remote/Headless dlv)",
+				mode = "remote",
+				request = "attach",
+				host = "127.0.0.1",
+				port = function() return tonumber(vim.fn.input("dlv port: ", "2345")) end,
+			},
+			{
+				type = "go",
+				name = "Debug test",
+				request = "launch",
+				mode = "test",
+				program = "${file}",
+			},
+			{
+				type = "go",
+				name = "Debug test (go.mod)",
+				request = "launch",
+				mode = "test",
+				program = "./${relativeFileDirname}",
 			},
 		}
 
